@@ -4,9 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import org.leanpoker.player.utils.CardCollectionBuilder;
 
-import java.util.List;
+import java.util.Map;
 
 public class Player {
 
@@ -20,7 +19,6 @@ public class Player {
             JsonObject gameState = request.getAsJsonObject();
             int playerIndex = gameState.get("in_action").getAsInt();
             JsonArray players = gameState.get("players").getAsJsonArray();
-            int smallBlind = gameState.get("small_blind").getAsInt();
             JsonObject ourPlayer = players.get(playerIndex).getAsJsonObject();
 
             int current_buy_in = gameState.get("current_buy_in").getAsInt();
@@ -29,9 +27,7 @@ public class Player {
 
             Card[] hole_cards = gson.fromJson(ourPlayer.get("hole_cards"), Card[].class);
 
-            List<Card> cardsInPlay = CardCollectionBuilder.buildCards(gameState);
-
-            return new PlayerStrategy(current_buy_in, minimum_raise, stack, 0, hole_cards, new Card[2], cardsInPlay, smallBlind).executePlay();
+            return new PlayerStrategy(current_buy_in, minimum_raise, stack, 0, hole_cards).executePlay();
         } catch (Exception e) {
             return 0;
         }

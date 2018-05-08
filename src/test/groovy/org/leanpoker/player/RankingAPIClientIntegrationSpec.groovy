@@ -1,5 +1,7 @@
 package org.leanpoker.player
 
+import com.google.gson.Gson
+import org.spockframework.compiler.model.Spec
 import spock.lang.Specification
 
 class RankingAPIClientIntegrationSpec extends Specification {
@@ -18,6 +20,8 @@ class RankingAPIClientIntegrationSpec extends Specification {
 
         then:
         response != null
+
+
     }
 
 
