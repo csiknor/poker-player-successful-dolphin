@@ -14,7 +14,7 @@ public class Player {
 
     private static final Logger LOGGER = LogManager.getLogger(Player.class);
 
-    static final String VERSION = "Stressed Java player";
+    static final String VERSION = "The Hulk Java player";
 
     public static int betRequest(JsonElement request) {
         JsonObject gameState = request.getAsJsonObject();
@@ -43,7 +43,8 @@ public class Player {
             LOGGER.error("CardsInPlay {}", cardsInPlay.size());
 
             if (cardsInPlay.size() == 2) {
-                return new PreFlopStrategy(current_buy_in, minimum_raise, playerBet, hole_cards, cardsInPlay).executePlay();
+                return new PreFlopStrategy(current_buy_in, minimum_rais
+                        e, playerBet, hole_cards, cardsInPlay).executePlay();
             } else {
                 return new PostFlopStrategy(current_buy_in, minimum_raise, stack, playerBet, hole_cards, community_cards, cardsInPlay, smallBlind).executePlay();
             }
