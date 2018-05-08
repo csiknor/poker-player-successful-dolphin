@@ -29,6 +29,10 @@ public class PostFlopStrategy {
 
         if (cardsInPlay.size() == 6){
             RankingResponse rankingResponse = new RankingAPIClient().executeRequest(cardsInPlay);
+
+            if (rankingResponse.getRank() >= 6) {
+                return playerStack;
+            }
             worthless = rankingResponse.getRank() == 0;
 
         }
