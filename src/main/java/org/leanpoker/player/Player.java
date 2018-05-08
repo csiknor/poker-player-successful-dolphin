@@ -17,15 +17,17 @@ public class Player {
     static final String VERSION = "Patient Java player";
 
     public static int betRequest(JsonElement request) {
+        JsonObject gameState = request.getAsJsonObject();
+        final Gson gson = new Gson();
 
+        String round = gameState.get("round").getAsString();
+        Card[] community_cards = gson.fromJson(gameState.get("community_cards"), Card[].class);
         try {
-            final Gson gson = new Gson();
 
-            JsonObject gameState = request.getAsJsonObject();
             int playerIndex = gameState.get("in_action").getAsInt();
             JsonArray players = gameState.get("players").getAsJsonArray();
             int smallBlind = gameState.get("small_blind").getAsInt();
-            String round = gameState.get("round").getAsString();
+
 
             JsonObject ourPlayer = players.get(playerIndex).getAsJsonObject();
 
@@ -35,7 +37,7 @@ public class Player {
             int playerBet = ourPlayer.get("bet").getAsInt();
 
             Card[] hole_cards = gson.fromJson(ourPlayer.get("hole_cards"), Card[].class);
-            Card[] community_cards = gson.fromJson(gameState.get("community_cards"), Card[].class);
+
             List<Card> cardsInPlay = CardCollectionBuilder.buildCards(gameState);
             LOGGER.info("Round:{}",round);
 
@@ -46,6 +48,8 @@ public class Player {
             }
 
         } catch (Exception e) {
+            LOGGER.error("Round:{}", round);
+            LOGGER.error("community card lengths {}", community_cards.length);
             LOGGER.error("Exception occurred", e);
             return 0;
         }
