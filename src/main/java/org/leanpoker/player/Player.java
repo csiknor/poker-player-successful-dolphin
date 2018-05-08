@@ -40,8 +40,9 @@ public class Player {
 
             List<Card> cardsInPlay = CardCollectionBuilder.buildCards(gameState);
             LOGGER.info("Round:{}",round);
+            LOGGER.error("CardsInPlay {}", cardsInPlay.size());
 
-            if (round.equals("0")) {
+            if (cardsInPlay.size() == 2) {
                 return new PreFlopStrategy(current_buy_in, minimum_raise, playerBet, hole_cards, cardsInPlay).executePlay();
             } else {
                 return new PostFlopStrategy(current_buy_in, minimum_raise, stack, playerBet, hole_cards, community_cards, cardsInPlay, smallBlind).executePlay();
