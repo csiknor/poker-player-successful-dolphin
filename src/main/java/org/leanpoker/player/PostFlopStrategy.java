@@ -53,6 +53,10 @@ public class PostFlopStrategy {
     }
 
     private int raiseAmount() throws IOException {
+        if (cardsInPlay.size() < 5) {
+            return 0;
+        }
+
         RankingResponse rankingResponse = new RankingAPIClient().executeRequest(cardsInPlay);
 
         int hand_rank = rankingResponse.getRank();
