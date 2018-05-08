@@ -39,7 +39,7 @@ public class Player {
             List<Card> cardsInPlay = CardCollectionBuilder.buildCards(gameState);
             LOGGER.info("Round:{}",round);
 
-            if (round == 0) {
+            if (community_cards.length == 0) {
                 return new PreFlopStrategy(current_buy_in, minimum_raise, stack, playerBet, hole_cards, new Card[2], cardsInPlay, smallBlind).executePlay();
             } else {
                 return new PostFlopStrategy(current_buy_in, minimum_raise, stack, playerBet, hole_cards, new Card[2], cardsInPlay, smallBlind).executePlay();
