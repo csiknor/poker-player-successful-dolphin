@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class Player {
 
-    static final String VERSION = "Default Java folding player";
+    static final String VERSION = "Dumb Java player";
 
     public static int betRequest(JsonElement request) {
 
@@ -26,10 +26,8 @@ public class Player {
 
 
         Card[] hole_cards = gson.fromJson(ourPlayer.get("hole_cards"), Card[].class);
-//
-//   JsonArray playerCards = ourPlayer.get("hole_cards").getAsJsonArray();
 
-        return 0;
+        return new PlayerStrategy(current_buy_in, minimum_raise, stack, 0, hole_cards).executePlay();
     }
 
     public static void showdown(JsonElement game) {
