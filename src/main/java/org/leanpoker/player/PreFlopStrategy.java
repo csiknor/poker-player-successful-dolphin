@@ -23,15 +23,33 @@ public class PreFlopStrategy {
         this.playerCards = playerCards;
         this.cardsInPlay = cardsInPlay;
         this.small_blind = small_blind;
+        this.player_aggression_level = 0.4f;
     }
 
     public int executePlay() throws IOException {
 
-        if (havePair() || hasHighCard(playerCards[0]) || hasHighCard(playerCards[1])) {
-            return minimum_raise + raiseAmount();
+        if (hasHighPair("A") || hasHighPair("K") || hasKingOrAce()) {
+            return playerStack;
+        } else if (havePair() || hasHighCard(playerCards[0]) || hasHighCard(playerCards[1])) {
+            return minimum_raise;
         }
 
         return 0;
+    }
+
+    private boolean hasKingOrAce() {
+
+        return (    (playerCards[0].getRank() == "K" && playerCards[0].getRank() == "A")
+                ||  (playerCards[0].getRank() == "K" && playerCards[0].getRank() == "A"));
+    }
+
+    private boolean hasHighPair(String rank) {
+        return playerCards[0].getRank().equals(rank) && playerCards[1].getRank().equals(rank);
+    }
+
+    private boolean hasHighCardsAndSuite() {
+        return (    (playerCards[0].getRank() == "K" && playerCards[0].getRank() == "A" && playerCards[0].getSuit() == playerCards[1].getSuit())
+                ||  (playerCards[0].getRank() == "K" && playerCards[0].getRank() == "A") && playerCards[0].getSuit() == playerCards[1].getSuit());
     }
 
     private boolean havePair() {
@@ -39,21 +57,10 @@ public class PreFlopStrategy {
             return true;
         else
             return false;
-
     }
 
     private boolean hasHighCard(Card card) {
 
         return card.getRank().matches("[A-Z]");
-    }
-
-    private int raiseAmount() throws IOException {
-        RankingResponse rankingResponse = new RankingAPIClient().executeRequest(cardsInPlay);
-
-        int hand_rank = rankingResponse.getRank();
-        int hand_value = rankingResponse.getValue();
-        int hand_second_value = rankingResponse.getSecond_value();
-
-        return Math.round(small_blind * hand_rank * hand_rank * (1 + hand_value/14) * (1 + hand_second_value/28) * player_aggression_level);
     }
 }
