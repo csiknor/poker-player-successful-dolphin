@@ -35,10 +35,10 @@ public class PreFlopStrategy {
 
         if (hasHighPair("A") || hasHighPair("K") || hasKingOrAce()) {
             LOGGER.info("Returning higher bet");
-            return current_buy_in - playerBet + minimum_raise;
+            return 20 * (current_buy_in - playerBet + minimum_raise);
         } else if (havePair() || hasHighCard(playerCards[0]) || hasHighCard(playerCards[1])) {
             LOGGER.info("Returning minimum raise");
-            return current_buy_in - playerBet + minimum_raise;
+            return 10 * (current_buy_in - playerBet + minimum_raise);
         }
 
 
