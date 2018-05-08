@@ -40,9 +40,9 @@ public class Player {
             LOGGER.info("Round:{}",round);
 
             if (community_cards.length == 0) {
-                return new PreFlopStrategy(current_buy_in, minimum_raise, stack, playerBet, hole_cards, new Card[2], cardsInPlay, smallBlind).executePlay();
+                return new PreFlopStrategy(current_buy_in, minimum_raise, stack, playerBet, hole_cards, cardsInPlay).executePlay();
             } else {
-                return new PostFlopStrategy(current_buy_in, minimum_raise, stack, playerBet, hole_cards, new Card[2], cardsInPlay, smallBlind).executePlay();
+                return new PostFlopStrategy(current_buy_in, minimum_raise, stack, playerBet, hole_cards, community_cards, cardsInPlay, smallBlind).executePlay();
             }
 
         } catch (Exception e) {

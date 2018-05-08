@@ -1,10 +1,14 @@
 package org.leanpoker.player;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.util.List;
 
 public class PreFlopStrategy {
 
+    private static final Logger LOGGER = LogManager.getLogger(PreFlopStrategy.class);
     private int current_buy_in;
     private int minimum_raise;
     private int playerStack;
@@ -12,7 +16,7 @@ public class PreFlopStrategy {
     private Card[] playerCards;
     private List<Card> cardsInPlay;
 
-    public PreFlopStrategy(int current_buy_in, int minimum_raise, int playerStack, int playerBet, Card[] playerCards, Card[] communityCards, List<Card> cardsInPlay, int small_blind) {
+    public PreFlopStrategy(int current_buy_in, int minimum_raise, int playerStack, int playerBet, Card[] playerCards, List<Card> cardsInPlay) {
         this.current_buy_in = current_buy_in;
         this.minimum_raise = minimum_raise;
         this.playerStack = playerStack;
@@ -22,12 +26,27 @@ public class PreFlopStrategy {
 
     public int executePlay() throws IOException {
 
+        LOGGER.info("-----------------------------------------------");
+        LOGGER.info("-----------------------------------------------");
+        LOGGER.info("-----------------------------------------------");
+        LOGGER.info("-----------------------------------------------");
+        LOGGER.info("Executing play");
+        LOGGER.info("Player cards: {}", playerCards);
+
+
         if (hasHighPair("A") || hasHighPair("K") || hasKingOrAce()) {
+            LOGGER.info("Returning playerStack");
             return playerStack;
         } else if (havePair() || hasHighCard(playerCards[0]) || hasHighCard(playerCards[1])) {
+            LOGGER.info("Returning minimum raise");
             return minimum_raise;
         }
 
+
+        LOGGER.info("-----------------------------------------------");
+        LOGGER.info("-----------------------------------------------");
+        LOGGER.info("-----------------------------------------------");
+        LOGGER.info("-----------------------------------------------");
         return 0;
     }
 
