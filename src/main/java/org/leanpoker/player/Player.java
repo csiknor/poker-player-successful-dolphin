@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Player {
 
-    static final String VERSION = "Dumb Java player";
+    static final String VERSION = "Motivated Java player";
 
     public static int betRequest(JsonElement request) {
 
