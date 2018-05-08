@@ -28,6 +28,4 @@ public class RankingAPIClient {
 
         return gson.fromJson(in, RankingResponse.class);
         }
-
-
 }

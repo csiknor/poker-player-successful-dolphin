@@ -30,7 +30,7 @@ public class PreFlopStrategy {
         LOGGER.info("-----------------------------------------------");
         LOGGER.info("-----------------------------------------------");
         LOGGER.info("Executing play");
-        LOGGER.info("Player cards: {}", playerCards);
+        LOGGER.info("Player cards: {}, {}", playerCards[0], playerCards[1]);
 
 
         if (hasHighPair("A") || hasHighPair("K") || hasKingOrAce()) {
