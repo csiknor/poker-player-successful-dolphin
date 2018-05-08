@@ -43,8 +43,7 @@ public class Player {
             LOGGER.error("CardsInPlay {}", cardsInPlay.size());
 
             if (cardsInPlay.size() == 2) {
-                return new PreFlopStrategy(current_buy_in, minimum_rais
-                        e, playerBet, hole_cards, cardsInPlay).executePlay();
+                return new PreFlopStrategy(current_buy_in, minimum_raise, playerBet, hole_cards, cardsInPlay).executePlay();
             } else {
                 return new PostFlopStrategy(current_buy_in, minimum_raise, stack, playerBet, hole_cards, community_cards, cardsInPlay, smallBlind).executePlay();
             }
