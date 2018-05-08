@@ -25,12 +25,18 @@ public class PostFlopStrategy {
     }
 
     public int executePlay() throws IOException {
+        boolean worthless = false;
 
-        if (havePair() || hasHighCard(playerCards[0]) || hasHighCard(playerCards[1])) {
-            return minimum_raise + raiseAmount();
+        if (cardsInPlay.size() == 6){
+            RankingResponse rankingResponse = new RankingAPIClient().executeRequest(cardsInPlay);
+            worthless = rankingResponse.getRank() == 0;
+
         }
+        if (worthless){
+            return playerBet;
+        }
+        return minimum_raise + raiseAmount();
 
-        return 0;
     }
 
     private boolean havePair() {

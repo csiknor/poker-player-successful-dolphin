@@ -32,14 +32,17 @@ public class Player {
             int current_buy_in = gameState.get("current_buy_in").getAsInt();
             int minimum_raise = gameState.get("minimum_raise").getAsInt();
             int stack = ourPlayer.get("stack").getAsInt();
+            int playerBet = ourPlayer.get("bet").getAsInt();
+
             Card[] hole_cards = gson.fromJson(ourPlayer.get("hole_cards"), Card[].class);
             Card[] community_cards = gson.fromJson(gameState.get("community_cards"), Card[].class);
             List<Card> cardsInPlay = CardCollectionBuilder.buildCards(gameState);
+            LOGGER.info("Round:{}",round);
 
             if (round == 0) {
-                return new PreFlopStrategy(current_buy_in, minimum_raise, stack, 0, hole_cards, community_cards, cardsInPlay, smallBlind).executePlay();
+                return new PreFlopStrategy(current_buy_in, minimum_raise, stack, playerBet, hole_cards, new Card[2], cardsInPlay, smallBlind).executePlay();
             } else {
-                return new PostFlopStrategy(current_buy_in, minimum_raise, stack, 0, hole_cards, community_cards, cardsInPlay, smallBlind).executePlay();
+                return new PostFlopStrategy(current_buy_in, minimum_raise, stack, playerBet, hole_cards, new Card[2], cardsInPlay, smallBlind).executePlay();
             }
 
         } catch (Exception e) {
