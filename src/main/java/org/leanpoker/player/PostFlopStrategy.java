@@ -3,8 +3,7 @@ package org.leanpoker.player;
 import java.io.IOException;
 import java.util.List;
 
-public class PlayerStrategy {
-
+public class PostFlopStrategy {
     private int current_buy_in;
     private int minimum_raise;
     private int playerStack;
@@ -15,7 +14,7 @@ public class PlayerStrategy {
     private float player_aggression_level = 0.4f;
     private int small_blind;
 
-    public PlayerStrategy(int current_buy_in, int minimum_raise, int playerStack, int playerBet, Card[] playerCards, Card[] communityCards, List<Card> cardsInPlay, int small_blind) {
+    public PostFlopStrategy(int current_buy_in, int minimum_raise, int playerStack, int playerBet, Card[] playerCards, Card[] communityCards, List<Card> cardsInPlay, int small_blind) {
         this.current_buy_in = current_buy_in;
         this.minimum_raise = minimum_raise;
         this.playerStack = playerStack;
@@ -38,7 +37,7 @@ public class PlayerStrategy {
         if (playerCards[0].getRank().equals(playerCards[1].getRank()))
             return true;
         else
-          return false;
+            return false;
 
     }
 
