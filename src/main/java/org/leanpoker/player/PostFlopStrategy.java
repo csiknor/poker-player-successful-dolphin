@@ -11,7 +11,7 @@ public class PostFlopStrategy {
 
     private Card[] playerCards;
     private List<Card> cardsInPlay;
-    private float player_aggression_level = 2.0f;
+    private float player_aggression_level = 20.0f;
     private int small_blind;
 
     public PostFlopStrategy(int current_buy_in, int minimum_raise, int playerStack, int playerBet, Card[] playerCards, Card[] communityCards, List<Card> cardsInPlay, int small_blind) {
