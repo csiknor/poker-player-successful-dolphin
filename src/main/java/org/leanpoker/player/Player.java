@@ -25,7 +25,7 @@ public class Player {
             int playerIndex = gameState.get("in_action").getAsInt();
             JsonArray players = gameState.get("players").getAsJsonArray();
             int smallBlind = gameState.get("small_blind").getAsInt();
-            int round = gameState.get("round").getAsInt();
+            String round = gameState.get("round").getAsString();
 
             JsonObject ourPlayer = players.get(playerIndex).getAsJsonObject();
 
@@ -39,7 +39,7 @@ public class Player {
             List<Card> cardsInPlay = CardCollectionBuilder.buildCards(gameState);
             LOGGER.info("Round:{}",round);
 
-            if (community_cards.length == 0) {
+            if (round.equals("0")) {
                 return new PreFlopStrategy(current_buy_in, minimum_raise, playerBet, hole_cards, cardsInPlay).executePlay();
             } else {
                 return new PostFlopStrategy(current_buy_in, minimum_raise, stack, playerBet, hole_cards, community_cards, cardsInPlay, smallBlind).executePlay();
