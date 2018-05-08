@@ -11,15 +11,14 @@ public class PreFlopStrategy {
     private static final Logger LOGGER = LogManager.getLogger(PreFlopStrategy.class);
     private int current_buy_in;
     private int minimum_raise;
-    private int playerStack;
-
+    private int playerBet;
     private Card[] playerCards;
     private List<Card> cardsInPlay;
 
-    public PreFlopStrategy(int current_buy_in, int minimum_raise, int playerStack, int playerBet, Card[] playerCards, List<Card> cardsInPlay) {
+    public PreFlopStrategy(int current_buy_in, int minimum_raise, int playerBet, Card[] playerCards, List<Card> cardsInPlay) {
         this.current_buy_in = current_buy_in;
         this.minimum_raise = minimum_raise;
-        this.playerStack = playerStack;
+        this.playerBet = playerBet;
         this.playerCards = playerCards;
         this.cardsInPlay = cardsInPlay;
     }
@@ -35,11 +34,11 @@ public class PreFlopStrategy {
 
 
         if (hasHighPair("A") || hasHighPair("K") || hasKingOrAce()) {
-            LOGGER.info("Returning playerStack");
-            return playerStack;
+            LOGGER.info("Returning higher bet");
+            return current_buy_in - playerBet + minimum_raise;
         } else if (havePair() || hasHighCard(playerCards[0]) || hasHighCard(playerCards[1])) {
             LOGGER.info("Returning minimum raise");
-            return minimum_raise;
+            return current_buy_in - playerBet + minimum_raise;
         }
 
 
