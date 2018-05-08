@@ -34,8 +34,10 @@ public class PostFlopStrategy {
                 return playerStack;
             }
             worthless = rankingResponse.getRank() == 0;
-
+        } else if (cardsInPlay.size() == 5 || cardsInPlay.size() == 7) {
+            return playerStack;
         }
+
         if (worthless){
             return playerBet;
         }
