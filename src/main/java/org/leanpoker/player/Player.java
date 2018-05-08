@@ -14,7 +14,7 @@ public class Player {
 
     private static final Logger LOGGER = LogManager.getLogger(Player.class);
 
-    static final String VERSION = "Patient Java player";
+    static final String VERSION = "Stressed Java player";
 
     public static int betRequest(JsonElement request) {
         JsonObject gameState = request.getAsJsonObject();
